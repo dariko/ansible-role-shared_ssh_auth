@@ -70,7 +70,7 @@
 
 -   name: read other hosts hostkeys
     shell:
-        ssh-keyscan {{" ".join(play_hosts)}} 2>/dev/null|grep ssh-rsa
+        ssh-keyscan {{" ".join(play_hosts)}} {{" ".join(play_hosts|map('extract',hostvars,'ansible_host')|list)}} 2>/dev/null|grep ssh-rsa
     register: out_shared_ssh_auth_keyscan
     changed_when: false
 
